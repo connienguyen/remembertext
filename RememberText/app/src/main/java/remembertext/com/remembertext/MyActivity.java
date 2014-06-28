@@ -2,6 +2,10 @@ package remembertext.com.remembertext;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.widget.EditText;
+import android.util.Log;
+import android.widget.TextView;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
