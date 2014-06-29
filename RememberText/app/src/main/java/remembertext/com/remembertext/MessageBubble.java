@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.IBinder;
-import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -63,6 +62,7 @@ public class MessageBubble extends Service {
         message_box.setVisibility(View.GONE);
 
         // Listener for dismiss button
+        //TODO rename btn_dismiss to btn_snooze for cleaner code
         chatHead.findViewById(R.id.btn_dismiss).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +113,7 @@ public class MessageBubble extends Service {
                         initialTouchY = event.getRawY();
                         return true;
                     case MotionEvent.ACTION_UP:
-                        if(txt_text.getVisibility() == View.INVISIBLE) {
+                        if(message_box.getVisibility() == View.VISIBLE) {
                             //TODO set timer here
                         }
                         else { //Else is not visible, set visible
@@ -121,8 +121,14 @@ public class MessageBubble extends Service {
                         }
                         return true;
                     case MotionEvent.ACTION_MOVE:
+                        //message_box.setVisibility(View.INVISIBLE);
                         params.x = initialX + (int) (event.getRawX() - initialTouchX);
                         params.y = initialY + (int) (event.getRawY() - initialTouchY);
+                        //Log.d("Raw Y", Float.toString(event.getRawY()));
+                        if(event.getRawY() >= 1500) { // Dismiss chatheads beyond this Y
+                            windowManager.removeView(chatHead);
+                            return false;
+                        }
                         windowManager.updateViewLayout(chatHead, params);
                         return true;
                 }

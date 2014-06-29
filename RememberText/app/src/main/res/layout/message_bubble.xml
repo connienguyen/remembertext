@@ -54,7 +54,7 @@
 
     <RelativeLayout
         android:id="@+id/message_box"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/darkGrey"
         android:layout_toRightOf="@+id/sender_icon">
@@ -91,7 +91,7 @@
             android:textColor="@color/white"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
-            android:text="Dismiss"/>
+            android:text="@string/button_snooze"/>
 
         </RelativeLayout>
 

@@ -6,6 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="edit_message">Edit message</string>
     <string name="button_send">Send</string>
+    <string name="button_snooze">Snooze</string>
     <string name="button_save">Save</string>
     <string name="button_cancel">Cancel</string>
     <string name="label_snoozeTime">Snooze Time</string>
