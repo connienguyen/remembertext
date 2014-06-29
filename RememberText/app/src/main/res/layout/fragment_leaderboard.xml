@@ -17,6 +17,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:paddingTop="5dp"
+        android:paddingLeft="3dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="John Smith\nAverage response Time: 123"/>
 
@@ -35,6 +36,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:paddingTop="5dp"
+            android:paddingLeft="3dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="John Smith\nAverage response Time: 123"/>
 
@@ -53,6 +55,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:paddingTop="5dp"
+            android:paddingLeft="3dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="John Smith\nAverage response Time: 123"/>
 
@@ -71,6 +74,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:paddingTop="5dp"
+            android:paddingLeft="3dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="John Smith\nAverage response Time: 123"/>
 
@@ -89,6 +93,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:paddingTop="5dp"
+            android:paddingLeft="3dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="John Smith\nAverage response Time: 123"/>
 
@@ -107,6 +112,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:paddingTop="5dp"
+            android:paddingLeft="3dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="John Smith\nAverage response Time: 123"/>
 

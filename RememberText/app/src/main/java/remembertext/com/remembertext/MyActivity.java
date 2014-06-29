@@ -1,19 +1,14 @@
 package remembertext.com.remembertext;
 
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.content.SharedPreferences;
 import android.content.Context;
 import android.content.Intent;
-import android.content.DialogInterface;
-import android.app.AlertDialog;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.Button;
 import android.view.View;
-import android.view.Menu;
-import android.view.View.OnClickListener;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import android.util.Log;

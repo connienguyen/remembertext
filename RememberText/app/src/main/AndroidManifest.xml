@@ -26,6 +26,11 @@
             android:label="@string/title_activity_fragment_settings" >
         </activity>
         -->
+        <service android:name=".MessageBubble" android:enabled="true" android:process=":SmsReceiver" >
+            <intent-filter>
+                <action android:name=".MessageBubble" />
+            </intent-filter>
+        </service>
         <receiver android:name=".SmsReceiver">
             <intent-filter>
                 <action android:name=
@@ -33,6 +38,7 @@
             </intent-filter>
 
         </receiver>
+        <!--
         <receiver android:name="com.tooleap.sdk.TooleapReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REPLACED"/>
@@ -42,6 +48,7 @@
                 <action android:name="com.tooleap.sdk.TOOLEAP_ACTION"/>
             </intent-filter>
         </receiver>
+        -->
     </application>
 
     <!-- Permissions used by app -->
