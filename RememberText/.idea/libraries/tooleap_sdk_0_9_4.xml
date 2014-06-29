@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="tooleap-sdk-0.9.4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/tooleap-sdk-0.9.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
