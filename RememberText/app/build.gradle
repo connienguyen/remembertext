@@ -24,4 +24,5 @@ dependencies {
     // You must install or update the Support Repository through the SDK manager to use this dependency.
     compile 'com.android.support:support-v13:19.+'
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
+    compile files('libs/android-support-v4.jar')
 }
