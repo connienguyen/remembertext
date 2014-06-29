@@ -1,21 +1,29 @@
 package remembertext.com.remembertext;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.content.SharedPreferences;
 import android.content.Context;
 import android.content.Intent;
+import android.content.DialogInterface;
+import android.app.AlertDialog;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Button;
 import android.view.View;
+import android.view.Menu;
+import android.view.View.OnClickListener;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-
 import android.util.Log;
 
 public class MyActivity extends SherlockFragmentActivity {
     private ViewPager mViewPager;
     private TabsAdapter mTabsAdapter;
+    Button b ;
+    String from,msg;
+    MessageBubble mb = new MessageBubble();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +39,29 @@ public class MyActivity extends SherlockFragmentActivity {
         mTabsAdapter = new TabsAdapter(this, mViewPager);
         mTabsAdapter.addTab(bar.newTab().setText("Settings"), Fragment_Settings.class, null);
         mTabsAdapter.addTab(bar.newTab().setText("Leaderboard"), Fragment_Leaderboard.class, null);
+
+        Intent incomingIntent = getIntent();
+        from = incomingIntent.getStringExtra("From");
+        msg = incomingIntent.getStringExtra("Msg");
+        Log.d("Activity", "Came in activity");
+
+        /*
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(from);
+        builder.setMessage(msg);
+        Log.d("Activity", "Came in dialog");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // TODO Auto-generated method stub
+                Log.d("Activity", "Came in OK ");
+                MyActivity.this.finish();
+            }
+        });
+
+        builder.show();
+        */
     }
 
     public void saveTimePrefs(View v) {
@@ -67,13 +98,16 @@ public class MyActivity extends SherlockFragmentActivity {
         Toast.makeText(getBaseContext(), "Snooze time saved", Toast.LENGTH_SHORT).show();
 
         /* Message Bubble testing */
-        Intent intent = new Intent(MyActivity.this, MessageBubble.class);
-        intent.putExtra("title", "Ciao");
-        intent.putExtra("text", "ChatHead");
-        startService(intent);
+        //mbCheck();
 
     }
 
+    /*
+    private void mbCheck() {
+        startService(new Intent(MyActivity.this, MessageBubble.class));
+        Toast.makeText(getBaseContext(), "Start Service", Toast.LENGTH_SHORT).show();
+    }
+    */
     /* Debug function
     private void check() {
         //SharedPreferences sharedPref = getSharedPreferences(Context.MODE_PRIVATE);
