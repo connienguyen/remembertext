@@ -6,7 +6,9 @@ import java.util.List;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.net.Uri;
 import android.os.IBinder;
+import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MessageBubble extends Service {
     private WindowManager windowManager;
@@ -57,7 +60,12 @@ public class MessageBubble extends Service {
         chatHead.findViewById(R.id.btn_dismiss).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                windowManager.removeView(chatHead);
+                //windowManager.removeView(chatHead);
+            String packageName = "com.android.mms";
+            Intent mIntent = getPackageManager().getLaunchIntentForPackage(packageName);
+                if (mIntent !=null){
+                  startActivity(mIntent);
+                }
             }
         });
 
