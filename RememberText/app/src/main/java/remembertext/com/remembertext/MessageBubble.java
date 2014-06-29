@@ -14,7 +14,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MessageBubble extends Service {
@@ -41,12 +43,17 @@ public class MessageBubble extends Service {
 
         final View chatHead = inflater.inflate(R.layout.message_bubble, null);
 
-        TextView txt_title = (TextView) chatHead.findViewById(R.id.txt_title);
-        TextView txt_text = (TextView) chatHead.findViewById(R.id.txt_text);
+        final TextView txt_title = (TextView) chatHead.findViewById(R.id.txt_title);
+        final TextView txt_text = (TextView) chatHead.findViewById(R.id.txt_text);
+        final Button btn_dismiss = (Button) chatHead.findViewById(R.id.btn_dismiss);
 
         txt_title.setText(intent.getStringExtra("From"));
         txt_text.setText(intent.getStringExtra("Msg"));
+        txt_title.setVisibility(View.GONE);
+        txt_text.setVisibility(View.GONE);
+        btn_dismiss.setVisibility(View.GONE);
 
+        // Listener for Dismiss button
         chatHead.findViewById(R.id.btn_dismiss).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +66,7 @@ public class MessageBubble extends Service {
 
         params.gravity = Gravity.TOP | Gravity.LEFT;
 
+        //Listener for the icon
         chatHead.findViewById(R.id.sender_icon).setOnTouchListener(new View.OnTouchListener() {
             private int initialX;
             private int initialY;
@@ -75,6 +83,14 @@ public class MessageBubble extends Service {
                         initialTouchY = event.getRawY();
                         return true;
                     case MotionEvent.ACTION_UP:
+                        if(txt_text.getVisibility() == View.INVISIBLE) {
+                            //TODO set timer here
+                        }
+                        else { //Else is not visible, set visible
+                            txt_title.setVisibility(View.VISIBLE);
+                            txt_text.setVisibility(View.VISIBLE);
+                            btn_dismiss.setVisibility(View.VISIBLE);
+                        }
                         return true;
                     case MotionEvent.ACTION_MOVE:
                         params.x = initialX + (int) (event.getRawX() - initialTouchX);
