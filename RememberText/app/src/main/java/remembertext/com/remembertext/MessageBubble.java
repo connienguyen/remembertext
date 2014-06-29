@@ -20,7 +20,6 @@ import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MessageBubble extends Service {
     private WindowManager windowManager;
@@ -61,15 +60,24 @@ public class MessageBubble extends Service {
         txt_text.setVisibility(View.GONE);
         btn_dismiss.setVisibility(View.GONE);
 
-        // Listener for Dismiss button
+        // Listener for dismiss button
         chatHead.findViewById(R.id.btn_dismiss).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                //windowManager.removeView(chatHead);
-            String packageName = "com.android.mms";
-            Intent mIntent = getPackageManager().getLaunchIntentForPackage(packageName);
+                windowManager.removeView(chatHead);
+            }
+
+        });
+
+         //Listener for text message (txt_text)
+        chatHead.findViewById(R.id.message_box).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v("onClick", "messagebox");
+                String packageName = "com.android.mms";
+                Intent mIntent = getPackageManager().getLaunchIntentForPackage(packageName);
                 if (mIntent !=null){
-                  startActivity(mIntent);
+                    startActivity(mIntent);
                 }
             }
         });
