@@ -36,9 +36,27 @@ public class MyActivity extends SherlockFragmentActivity {
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         EditText et = (EditText) findViewById(R.id.hours);
-        Integer et_hours = Integer.parseInt(et.getText().toString());
         EditText et_m = (EditText) findViewById(R.id.minutes);
-        Integer et_minutes = Integer.parseInt(et_m.getText().toString());
+        Integer et_hours;
+        Integer et_minutes;
+        try {
+            et_hours = Integer.parseInt(et.getText().toString());
+            et_minutes = Integer.parseInt(et_m.getText().toString());
+        }
+        catch(IllegalStateException ise) {
+            et_hours = 0;
+            et_minutes = 15;
+            Toast.makeText(getBaseContext(), "Invalid input. Snooze time reset.", Toast.LENGTH_SHORT).show();
+            et.setText("0");
+            et_m.setText("15");
+        }
+        catch(NumberFormatException nfe) {
+            et_hours = 0;
+            et_minutes = 15;
+            Toast.makeText(getBaseContext(), "Invalid input. Snooze time reset.", Toast.LENGTH_SHORT).show();
+            et.setText("0");
+            et_m.setText("15");
+        }
         /* Check so that minutes is not 60 or over */
         if(et_minutes >= 59) {
             et_minutes = 59;
