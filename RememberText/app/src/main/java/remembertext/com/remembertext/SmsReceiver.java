@@ -46,9 +46,9 @@ public class SmsReceiver extends BroadcastReceiver
                         chatHead.putExtra("From", msg_from);
                         chatHead.putExtra("Time",time);
                         Log.d("What's the time? ",time);
-                        Log.d("Originating Address: ", msg_from);
-                        Log.d("Message Body: ", msgBody);
-                        String name = "?";
+                        //Log.d("Originating Address: ", msg_from);
+                        //Log.d("Message Body: ", msgBody);
+                        String name = "nameNotFound";
 
                         if (msgBody != null) {
                             String number = PhoneNumberUtils.formatNumber(msg_from);
@@ -65,9 +65,6 @@ public class SmsReceiver extends BroadcastReceiver
                                     name = contactLookup.getString(contactLookup.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
                                     //String contactId = contactLookup.getString(contactLookup.getColumnIndex(BaseColumns._ID));
                                 }
-                                else {
-                                    name = "nameNotFound";
-                                }
                             } finally {
                                 if (contactLookup != null) {
                                     contactLookup.close();
@@ -80,7 +77,7 @@ public class SmsReceiver extends BroadcastReceiver
                         chatHead.putExtra("Name",name);
 
                         context.startService(chatHead);
-                        Log.d("msgBody : ", msgBody);
+                        //Log.d("msgBody : ", msgBody);
                     }
                 }catch(Exception e){
                     Log.d("Exception caught",e.getMessage());

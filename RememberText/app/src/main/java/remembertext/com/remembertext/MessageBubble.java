@@ -20,6 +20,8 @@ import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.telephony.SmsManager;
 
 public class MessageBubble extends Service {
     private WindowManager windowManager;
@@ -48,6 +50,7 @@ public class MessageBubble extends Service {
         final TextView txt_title = (TextView) chatHead.findViewById(R.id.txt_title);
         final TextView txt_text = (TextView) chatHead.findViewById(R.id.txt_text);
         final Button btn_dismiss = (Button) chatHead.findViewById(R.id.btn_dismiss);
+        final String phoneNumber = intent.getStringExtra("From");
 
         if(intent.getStringExtra("Name").equals("nameNotFound")) {
             txt_title.setText(intent.getStringExtra("From"));
@@ -56,9 +59,8 @@ public class MessageBubble extends Service {
             txt_title.setText(intent.getStringExtra("Name"));
         }
         txt_text.setText(intent.getStringExtra("Msg"));
-        txt_title.setVisibility(View.GONE);
-        txt_text.setVisibility(View.GONE);
-        btn_dismiss.setVisibility(View.GONE);
+        final View message_box = (View) chatHead.findViewById(R.id.message_box);
+        message_box.setVisibility(View.GONE);
 
         // Listener for dismiss button
         chatHead.findViewById(R.id.btn_dismiss).setOnClickListener(new OnClickListener() {
@@ -73,11 +75,18 @@ public class MessageBubble extends Service {
         chatHead.findViewById(R.id.message_box).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("onClick", "messagebox");
-                String packageName = "com.android.mms";
-                Intent mIntent = getPackageManager().getLaunchIntentForPackage(packageName);
-                if (mIntent !=null){
+                try {
+                    Intent mIntent = new Intent(Intent.ACTION_SENDTO);
+                    mIntent.setData(Uri.parse("smsto:"+phoneNumber));
+                    mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(mIntent);
+                }
+                catch (Exception e) {
+                    Log.v("Exception thrown ", e.getMessage());
+                    Toast.makeText(getBaseContext(), "Messaged failed. Try again later.", Toast.LENGTH_LONG).show();
+                }
+                finally {
+                    windowManager.removeView(chatHead);
                 }
             }
         });
@@ -108,9 +117,7 @@ public class MessageBubble extends Service {
                             //TODO set timer here
                         }
                         else { //Else is not visible, set visible
-                            txt_title.setVisibility(View.VISIBLE);
-                            txt_text.setVisibility(View.VISIBLE);
-                            btn_dismiss.setVisibility(View.VISIBLE);
+                            message_box.setVisibility(View.VISIBLE);
                         }
                         return true;
                     case MotionEvent.ACTION_MOVE:
