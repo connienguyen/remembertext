@@ -65,6 +65,9 @@ public class SmsReceiver extends BroadcastReceiver
                                     name = contactLookup.getString(contactLookup.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
                                     //String contactId = contactLookup.getString(contactLookup.getColumnIndex(BaseColumns._ID));
                                 }
+                                else {
+                                    name = "nameNotFound";
+                                }
                             } finally {
                                 if (contactLookup != null) {
                                     contactLookup.close();

@@ -47,7 +47,12 @@ public class MessageBubble extends Service {
         final TextView txt_text = (TextView) chatHead.findViewById(R.id.txt_text);
         final Button btn_dismiss = (Button) chatHead.findViewById(R.id.btn_dismiss);
 
-        txt_title.setText(intent.getStringExtra("From"));
+        if(intent.getStringExtra("Name").equals("nameNotFound")) {
+            txt_title.setText(intent.getStringExtra("From"));
+        }
+        else {
+            txt_title.setText(intent.getStringExtra("Name"));
+        }
         txt_text.setText(intent.getStringExtra("Msg"));
         txt_title.setVisibility(View.GONE);
         txt_text.setVisibility(View.GONE);
