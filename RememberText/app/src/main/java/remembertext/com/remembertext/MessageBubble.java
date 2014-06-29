@@ -9,6 +9,7 @@ import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.IBinder;
 import android.util.Log;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -44,8 +45,8 @@ public class MessageBubble extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+        final DisplayMetrics displayMetrics = new DisplayMetrics();
         final View chatHead = inflater.inflate(R.layout.message_bubble, null);
-
         final TextView txt_title = (TextView) chatHead.findViewById(R.id.txt_title);
         final TextView txt_text = (TextView) chatHead.findViewById(R.id.txt_text);
         final Button btn_dismiss = (Button) chatHead.findViewById(R.id.btn_dismiss);
@@ -102,6 +103,7 @@ public class MessageBubble extends Service {
             private int initialY;
             private float initialTouchX;
             private float initialTouchY;
+            private float percentScreen;
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -124,7 +126,10 @@ public class MessageBubble extends Service {
                         //message_box.setVisibility(View.INVISIBLE);
                         params.x = initialX + (int) (event.getRawX() - initialTouchX);
                         params.y = initialY + (int) (event.getRawY() - initialTouchY);
-                        //Log.d("Raw Y", Float.toString(event.getRawY()));
+
+                        percentScreen = event.getRawY() / displayMetrics.heightPixels;
+                        Log.d("Raw Y", Integer.toString(displayMetrics.heightPixels));
+                        Log.d("Raw Y", Float.toString(percentScreen));
                         if(event.getRawY() >= 1500) { // Dismiss chatheads beyond this Y
                             windowManager.removeView(chatHead);
                             return false;
