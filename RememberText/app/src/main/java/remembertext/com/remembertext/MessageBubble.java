@@ -1,54 +1,65 @@
 package remembertext.com.remembertext;
 
-import android.os.IBinder;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Service;
-import android.view.WindowManager;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.ImageView;
-import android.view.MotionEvent;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.os.IBinder;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
+import android.widget.TextView;
 
 public class MessageBubble extends Service {
-    String from, msg;
     private WindowManager windowManager;
-    private ImageView mBubble;
-    WindowManager.LayoutParams params;
+    private List<View> chatHeads;
+    private LayoutInflater inflater;
+    String from, msg;
 
     @Override
     public IBinder onBind(Intent intent) {
-        // Not used
-        from = intent.getStringExtra("From");
-        msg = intent.getStringExtra("Msg");
         return null;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+        inflater = LayoutInflater.from(this);
+        chatHeads = new ArrayList<View>();
+    }
 
-        mBubble = new ImageView(this);
-        mBubble.setImageResource(R.drawable.fluffy);
-        Log.d("resID", Integer.toString(R.drawable.fluffy));
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
 
-        params = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.TYPE_PHONE,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                PixelFormat.TRANSLUCENT);
+        final View chatHead = inflater.inflate(R.layout.message_bubble, null);
+
+        TextView txt_title = (TextView) chatHead.findViewById(R.id.txt_title);
+        TextView txt_text = (TextView) chatHead.findViewById(R.id.txt_text);
+
+        txt_title.setText(intent.getStringExtra("From"));
+        txt_text.setText(intent.getStringExtra("Msg"));
+
+        chatHead.findViewById(R.id.btn_dismiss).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                windowManager.removeView(chatHead);
+            }
+        });
+
+        final WindowManager.LayoutParams params = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.TYPE_PHONE, 0, PixelFormat.TRANSLUCENT);
 
         params.gravity = Gravity.TOP | Gravity.LEFT;
-        params.x = 0;
-        params.y = 100;
 
-        windowManager.addView(mBubble, params);
-
-        mBubble.setOnTouchListener(new View.OnTouchListener() {
+        chatHead.findViewById(R.id.sender_icon).setOnTouchListener(new View.OnTouchListener() {
             private int initialX;
             private int initialY;
             private float initialTouchX;
@@ -62,44 +73,39 @@ public class MessageBubble extends Service {
                         initialY = params.y;
                         initialTouchX = event.getRawX();
                         initialTouchY = event.getRawY();
-                        Intent i = new Intent(getBaseContext(), MyActivity.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        i.setClass(getBaseContext(), MyActivity.class);
-                        i.putExtra("Msg", msg);
-                        i.putExtra("From", from);
-                        startActivity(i);
                         return true;
                     case MotionEvent.ACTION_UP:
                         return true;
                     case MotionEvent.ACTION_MOVE:
-
-
                         params.x = initialX + (int) (event.getRawX() - initialTouchX);
                         params.y = initialY + (int) (event.getRawY() - initialTouchY);
-                        windowManager.updateViewLayout(mBubble, params);
+                        windowManager.updateViewLayout(chatHead, params);
                         return true;
                 }
                 return false;
             }
         });
 
+        addChatHead(chatHead, params);
+
+        return super.onStartCommand(intent, flags, startId);
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        // TODO Auto-generated method stub
-        from = intent.getStringExtra("From");
-        msg = intent.getStringExtra("Msg");
-        Log.d("In Start", "In start");
-        return startId;
-
+    public void addChatHead(View chatHead, LayoutParams params) {
+        chatHeads.add(chatHead);
+        windowManager.addView(chatHead, params);
     }
 
+    public void removeChatHead(View chatHead) {
+        chatHeads.remove(chatHead);
+        windowManager.removeView(chatHead);
+    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mBubble != null) windowManager.removeView(mBubble);
-
+        for (View chatHead : chatHeads) {
+            removeChatHead(chatHead);
+        }
     }
 }
