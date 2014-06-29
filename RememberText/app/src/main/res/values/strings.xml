@@ -14,5 +14,7 @@
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
     <string name="title_activity_fragment_settings">fragment_settings</string>
+    <string name="hours_set">Hours Set</string>
+    <string name="minutes_set">Minutes Set</string>
 
 </resources>
