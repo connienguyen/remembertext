@@ -50,14 +50,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="2dp"
-        android:src="@drawable/fluffy"/>
+        android:src="@drawable/chathead_demo"/>
 
     <RelativeLayout
         android:id="@+id/message_box"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/darkGrey"
         android:layout_toRightOf="@+id/sender_icon">
+
+        <ImageView
+            android:id="@+id/message_point"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="2dp"
+            android:src="@drawable/message_point"/>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/darkGrey"
+            android:layout_toRightOf="@+id/message_point">
 
         <TextView
             android:id="@+id/txt_title"
@@ -68,6 +80,7 @@
             android:paddingLeft="6dp"
             android:paddingRight="6dp"
             android:textColor="@color/white"
+            android:layout_toRightOf="@+id/message_point"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="test_title"/>
 
@@ -92,6 +105,8 @@
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
             android:text="@string/button_snooze"/>
+
+            </RelativeLayout>
 
         </RelativeLayout>
 

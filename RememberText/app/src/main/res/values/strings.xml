@@ -9,7 +9,9 @@
     <string name="button_snooze">Snooze</string>
     <string name="button_save">Save</string>
     <string name="button_cancel">Cancel</string>
+    <string name="label_your_score">Your Response Time Score</string>
     <string name="label_snoozeTime">Snooze Time</string>
+    <string name="time">45</string>
     <string name="title_activity_tabs">Tabs</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>

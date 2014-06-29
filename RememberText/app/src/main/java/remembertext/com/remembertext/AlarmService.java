@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.view.View;
 import android.content.Intent;
 import android.os.IBinder;
 
@@ -11,6 +12,7 @@ import android.os.IBinder;
 public class AlarmService extends Service
 {
     private NotificationManager mManager;
+    private View chathead;
 
     @Override
     public IBinder onBind(Intent arg0)
@@ -36,9 +38,9 @@ public class AlarmService extends Service
         Intent intent1 = new Intent(this.getApplicationContext(),MyActivity.class);
 
         Notification notification = new Notification.Builder(this.getApplicationContext())
-                .setContentTitle("Remember text notice")
-                .setContentText("ALARM")
-                .setSmallIcon(R.drawable.fluffy)
+                .setContentTitle("Sender's name")
+                .setContentText("Incoming message preview")
+                .setSmallIcon(R.drawable.chathead_demo)
                 .build();
         //Notification notification = new Notification(R.drawable.ic_launcher,"This is a test message!", System.currentTimeMillis());
         intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP| Intent.FLAG_ACTIVITY_CLEAR_TOP);

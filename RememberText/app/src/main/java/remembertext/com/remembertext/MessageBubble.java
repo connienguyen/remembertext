@@ -73,8 +73,8 @@ public class MessageBubble extends Service {
         chatHead.findViewById(R.id.btn_dismiss).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                snoozeMessage();
                 windowManager.removeView(chatHead);
+                snoozeMessage(txt_title.getText().toString(), txt_text.getText().toString());
             }
 
         });
@@ -181,11 +181,22 @@ public class MessageBubble extends Service {
     }
 
     //Set snooze
-    public void snoozeMessage() {
+    public void snoozeMessage(String sender, String msg) {
         Intent myIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, myIntent,0);
+        int previewMax = 33;
+        String preview;
+        if(msg.length() < previewMax) {
+            preview = msg;
+        }
+        else {
+            preview = msg.substring(0, 33);
+            preview = preview + "...";
+        }
+        myIntent.putExtra("Sender", sender);
+        myIntent.putExtra("Msg", preview);
 
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, myIntent,0);
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + 20000, pendingIntent);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + 10000, pendingIntent);
     }
 }

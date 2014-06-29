@@ -13,7 +13,7 @@ public class AlarmReceiver extends BroadcastReceiver{
     public void onReceive(Context context, Intent intent) {
         Intent service1 = new Intent(context, AlarmService.class);
         context.startService(service1);
-        Toast.makeText(context, "Alarm worked.", Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, "Alarm worked.", Toast.LENGTH_LONG).show();
         Log.d("OK", "AlarmReceiver.onReceive");
     }
 }
