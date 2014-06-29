@@ -3,11 +3,14 @@ package remembertext.com.remembertext;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.PendingIntent;
 import android.app.Service;
+import android.app.AlarmManager;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.util.Log;
 import android.util.DisplayMetrics;
 import android.content.Context;
@@ -23,7 +26,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.telephony.SmsManager;
 
 public class MessageBubble extends Service {
     private WindowManager windowManager;
@@ -71,6 +73,7 @@ public class MessageBubble extends Service {
         chatHead.findViewById(R.id.btn_dismiss).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                snoozeMessage();
                 windowManager.removeView(chatHead);
             }
 
@@ -166,5 +169,23 @@ public class MessageBubble extends Service {
         for (View chatHead : chatHeads) {
             removeChatHead(chatHead);
         }
+    }
+
+    //Open chathead again
+    public void openMessage(View v) {
+        WindowManager.LayoutParams params = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.TYPE_PHONE, 0, PixelFormat.TRANSLUCENT);
+
+        params.gravity = Gravity.TOP | Gravity.LEFT;
+        windowManager.addView(v, params);
+    }
+
+    //Set snooze
+    public void snoozeMessage() {
+        Intent myIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, myIntent,0);
+
+        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + 20000, pendingIntent);
     }
 }

@@ -20,7 +20,6 @@ import android.util.Log;
 public class MyActivity extends SherlockFragmentActivity {
     private ViewPager mViewPager;
     private TabsAdapter mTabsAdapter;
-    Button b ;
     String from,msg;
     MessageBubble mb = new MessageBubble();
 
@@ -42,25 +41,7 @@ public class MyActivity extends SherlockFragmentActivity {
         Intent incomingIntent = getIntent();
         from = incomingIntent.getStringExtra("From");
         msg = incomingIntent.getStringExtra("Msg");
-        Log.d("Activity", "Came in activity");
-
-        /*
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(from);
-        builder.setMessage(msg);
-        Log.d("Activity", "Came in dialog");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // TODO Auto-generated method stub
-                Log.d("Activity", "Came in OK ");
-                MyActivity.this.finish();
-            }
-        });
-
-        builder.show();
-        */
+        //Log.d("Activity", "Came in activity");
     }
 
     public void saveTimePrefs(View v) {
