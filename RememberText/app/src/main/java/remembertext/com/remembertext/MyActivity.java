@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.content.SharedPreferences;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.view.View;
@@ -64,6 +65,13 @@ public class MyActivity extends SherlockFragmentActivity {
         editor.commit();
 
         Toast.makeText(getBaseContext(), "Snooze time saved", Toast.LENGTH_SHORT).show();
+
+        /* Message Bubble testing */
+        Intent intent = new Intent(MyActivity.this, MessageBubble.class);
+        intent.putExtra("title", "Ciao");
+        intent.putExtra("text", "ChatHead");
+        startService(intent);
+
     }
 
     /* Debug function

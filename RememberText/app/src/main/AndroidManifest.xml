@@ -16,6 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--
         <activity
             android:name=".Tabs"
             android:label="@string/title_activity_tabs" >
@@ -24,6 +25,18 @@
             android:name=".fragment_settings"
             android:label="@string/title_activity_fragment_settings" >
         </activity>
+        -->
+        <receiver android:name=".SmsReceiver">
+            <intent-filter>
+                <action android:name=
+                    "android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+
+        </receiver>
     </application>
+
+    <!-- Permissions used by app -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
 </manifest>
