@@ -42,6 +42,7 @@ public class MyActivity extends SherlockFragmentActivity {
         try {
             et_hours = Integer.parseInt(et.getText().toString());
             et_minutes = Integer.parseInt(et_m.getText().toString());
+            if(et_minutes >= 59) throw new NumberFormatException();
         }
         catch(IllegalStateException ise) {
             et_hours = 0;
@@ -57,10 +58,7 @@ public class MyActivity extends SherlockFragmentActivity {
             et.setText("0");
             et_m.setText("15");
         }
-        /* Check so that minutes is not 60 or over */
-        if(et_minutes >= 59) {
-            et_minutes = 59;
-        }
+
         editor.putInt(getString(R.string.hours_set), et_hours);
         editor.putInt(getString(R.string.minutes_set), et_minutes);
         editor.commit();
