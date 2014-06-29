@@ -1,5 +1,8 @@
 package remembertext.com.remembertext;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.content.SharedPreferences;
@@ -12,6 +15,7 @@ import android.view.View;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import android.util.Log;
+
 
 public class MyActivity extends SherlockFragmentActivity {
     private ViewPager mViewPager;
@@ -94,9 +98,25 @@ public class MyActivity extends SherlockFragmentActivity {
 
         /* Message Bubble testing */
         //mbCheck();
-
     }
 
+
+/*
+    NotificationManager NM = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+
+    @SuppressWarnings("deprecation")
+    public void notify(Context context) {
+        String Hours = ((EditText) findViewById(R.id.hours)).getText().toString();
+        String Mins = ((EditText) findViewById(R.id.hours)).getText().toString();
+        Log.d("HOURS: ", Hours);
+        Log.d("Minutes: ", Mins);
+        NM = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification notify = new Notification(android.R.drawable.stat_notify_more, "TEST", System.currentTimeMillis());
+        PendingIntent pending = PendingIntent.getActivity(context.getApplicationContext(), 0, new Intent(), 0);
+        notify.setLatestEventInfo(context.getApplicationContext(), Hours, Mins, pending);
+        NM.notify(0, notify);
+    }
+*/
     /*
     private void mbCheck() {
         startService(new Intent(MyActivity.this, MessageBubble.class));
