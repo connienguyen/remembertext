@@ -21,7 +21,6 @@ public class MyActivity extends SherlockFragmentActivity {
     private ViewPager mViewPager;
     private TabsAdapter mTabsAdapter;
     String from,msg;
-    MessageBubble mb = new MessageBubble();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,43 +75,5 @@ public class MyActivity extends SherlockFragmentActivity {
         editor.commit();
 
         Toast.makeText(getBaseContext(), "Snooze time saved", Toast.LENGTH_SHORT).show();
-
-        /* Message Bubble testing */
-        //mbCheck();
     }
-
-
-/*
-    NotificationManager NM = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-
-    @SuppressWarnings("deprecation")
-    public void notify(Context context) {
-        String Hours = ((EditText) findViewById(R.id.hours)).getText().toString();
-        String Mins = ((EditText) findViewById(R.id.hours)).getText().toString();
-        Log.d("HOURS: ", Hours);
-        Log.d("Minutes: ", Mins);
-        NM = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        Notification notify = new Notification(android.R.drawable.stat_notify_more, "TEST", System.currentTimeMillis());
-        PendingIntent pending = PendingIntent.getActivity(context.getApplicationContext(), 0, new Intent(), 0);
-        notify.setLatestEventInfo(context.getApplicationContext(), Hours, Mins, pending);
-        NM.notify(0, notify);
-    }
-*/
-    /*
-    private void mbCheck() {
-        startService(new Intent(MyActivity.this, MessageBubble.class));
-        Toast.makeText(getBaseContext(), "Start Service", Toast.LENGTH_SHORT).show();
-    }
-    */
-    /* Debug function
-    private void check() {
-        //SharedPreferences sharedPref = getSharedPreferences(Context.MODE_PRIVATE);
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-        int defaultValue = 15;
-        Integer highScore = sharedPref.getInt(getString(R.string.hours_set), defaultValue);
-        Log.v("\n\nHours saved", Integer.toString(highScore));
-
-        Toast.makeText(getBaseContext(), Integer.toString(highScore), Toast.LENGTH_SHORT).show();
-    }
-    */
 }

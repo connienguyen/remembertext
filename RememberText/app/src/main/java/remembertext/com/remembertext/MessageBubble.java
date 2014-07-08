@@ -48,6 +48,9 @@ public class MessageBubble extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        //THIS IS THE CASE ONLY FOR MAKING A NEW CHATHEAD
+        //SHOULD ADJUST SO THAT NO NEW CHATHEADS ARE CREATED FOR
+        //EXISTING SENDERS IN LIST chatHeads
         final WindowManager w = (WindowManager) getBaseContext().getSystemService(Context.WINDOW_SERVICE);
         final Display d = w.getDefaultDisplay();
         final DisplayMetrics displayMetrics = new DisplayMetrics();
