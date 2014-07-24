@@ -28,6 +28,7 @@ public class MyActivity extends SherlockFragmentActivity {
 
         mViewPager = new ViewPager(this);
         mViewPager.setId(R.id.pager);
+
         setContentView(mViewPager);
 
         final ActionBar bar = getSupportActionBar();

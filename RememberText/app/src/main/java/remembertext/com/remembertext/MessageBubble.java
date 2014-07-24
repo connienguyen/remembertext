@@ -82,6 +82,7 @@ public class MessageBubble extends Service {
 
         });
 
+
          //Listener for text message (txt_text)
         chatHead.findViewById(R.id.message_box).setOnClickListener(new OnClickListener() {
             @Override
@@ -92,6 +93,8 @@ public class MessageBubble extends Service {
                     mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(mIntent);
                 }
+
+
                 catch (Exception e) {
                     Log.v("Exception thrown ", e.getMessage());
                     Toast.makeText(getBaseContext(), "Messaged failed. Try again later.", Toast.LENGTH_LONG).show();
@@ -200,6 +203,6 @@ public class MessageBubble extends Service {
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, myIntent,0);
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + 10000, pendingIntent);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + 10000, pendingIntent); //Time should be changed here <<--
     }
 }
